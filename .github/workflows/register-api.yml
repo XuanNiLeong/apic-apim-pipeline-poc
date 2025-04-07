@@ -45,6 +45,7 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
+            echo "Using specification file path: $SPECIFICATION_FILE_PATH"
 
             echo "Deploying API to APIM..."
             az apim api import --resource-group "$RESOURCE_GROUP" \
@@ -108,7 +109,6 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            echo "Using specification file path: $SPECIFICATION_FILE_PATH"
 
             # Register the API to API Center using the OpenAPI specification
             echo "Registering API to API Center..."
