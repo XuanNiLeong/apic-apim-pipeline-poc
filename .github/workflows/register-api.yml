@@ -25,15 +25,7 @@ jobs:
       # Load environment variables from .env file
       - name: Load .env variables
         run: |
-          set -a
-          source .env
-          set +a
-          echo "path env ${{ env.SPECIFICATION_FILE_PATH}}"
-          echo "path  $SPECIFICATION_FILE_PATH"
-
-        # uses: direnv/direnv-action@v2
-        # with:
-        #   env_file: .env
+          grep -v '^#' .env | grep -v '^\s*$' >> $GITHUB_ENV
 
       # Login to Azure with the right permission to write to APIM
       - name: Azure login
@@ -48,10 +40,12 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            echo "path $SPECIFICATION_FILE_PATH"
-            echo "path env ${{ env.SPECIFICATION_FILE_PATH}}"
-            echo "SPECIFICATION_FILE_PATH: $SPECIFICATION_FILE_PATH"
-            ls -l .env
+
+            # Load environment variables from .env file
+            echo "Loading environment variables from .env file..."
+            grep -v '^#' .env | grep -v '^\s*$' >> $GITHUB_ENV
+
+
             echo "Deploying API to APIM..."
             az apim api import --resource-group "$RESOURCE_GROUP" \
             --service-name "$APIM_SERVICE_NAME" \
@@ -73,9 +67,8 @@ jobs:
 
       # Load environment variables from .env file
       - name: Load .env variables
-        uses: direnv/direnv-action@v2
-        with:
-          env_file: .env
+        run: |
+          grep -v '^#' .env | grep -v '^\s*$' >> $GITHUB_ENV
 
       # Login to Azure with the right permission to read from APIM
       - name: Azure login
