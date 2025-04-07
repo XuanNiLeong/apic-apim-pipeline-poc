@@ -26,9 +26,10 @@ jobs:
       - name: Load .env variables
         run: |
           set -a
-          [ -f .env ] && . .env
+          source .env
           set +a
           echo "path env ${{ env.SPECIFICATION_FILE_PATH}}"
+          echo "path  $SPECIFICATION_FILE_PATH"
 
         # uses: direnv/direnv-action@v2
         # with:
