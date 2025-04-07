@@ -1,4 +1,4 @@
-name: Automate deployment and registration of API to APIM and API Center
+name: Automate deployment of API to APIM and registration of API to API Center
 
 on:
   pull_request:
