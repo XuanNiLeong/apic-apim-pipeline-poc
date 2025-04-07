@@ -24,9 +24,13 @@ jobs:
 
       # Load environment variables from .env file
       - name: Load .env variables
-        uses: direnv/direnv-action@v2
-        with:
-          env_file: .env
+        run: |
+          set -a
+          [ -f .env ] && . .env
+          set +a
+        # uses: direnv/direnv-action@v2
+        # with:
+        #   env_file: .env
 
       # Login to Azure with the right permission to write to APIM
       - name: Azure login
