@@ -45,11 +45,6 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            echo "Using specification file path: ${{ env.SPECIFICATION_FILE_PATH }}"
-            echo "Using rg: ${{ env.RESOURCE_GROUP }}"
-            echo "Using apim: $APIM_SERVICE_NAME"
-
-
             echo "Deploying API to APIM..."
             az apim api import --resource-group "$RESOURCE_GROUP" \
             --service-name "$APIM_SERVICE_NAME" \
@@ -117,7 +112,7 @@ jobs:
             echo "Registering API to API Center..."
             az apic api register --resource-group "$RESOURCE_GROUP" \
             --service-name "$APIC_SERVICE_NAME" \
-            --api-location "${{ env.SPECIFICATION_FILE_PATH }}"
+            --api-location "$SPECIFICATION_FILE_PATH"
             echo "Successfully registered API to API Center"
 
             # Getting the environment ID of the API Center instance 
