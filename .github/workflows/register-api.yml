@@ -70,6 +70,7 @@ jobs:
         uses: direnv/direnv-action@v2
         with:
           env_file: .env
+          echo "Using specification file path: $SPECIFICATION_FILE_PATH"
 
       # Login to Azure with the right permission to read from APIM
       - name: Azure login
