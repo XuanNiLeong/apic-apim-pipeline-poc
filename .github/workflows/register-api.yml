@@ -40,19 +40,13 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-
-            # Load environment variables from .env file
-            echo "Loading environment variables from .env file..."
-            grep -v '^#' .env | grep -v '^\s*$' >> $GITHUB_ENV
-
-
             echo "Deploying API to APIM..."
-            az apim api import --resource-group "$RESOURCE_GROUP" \
-            --service-name "$APIM_SERVICE_NAME" \
-            --path "$API_ID" \
-            --api-id "$API_ID" \
+            az apim api import --resource-group "${{env.RESOURCE_GROUP}}" \
+            --service-name "${{env.APIM_SERVICE_NAME}}" \
+            --path "${{env.API_ID}}" \
+            --api-id "${{env.API_ID}}" \
             --specification-format OpenApiJson \
-            --specification-path "$SPECIFICATION_FILE_PATH" 
+            --specification-path "${{env.SPECIFICATION_FILE_PATH}}" 
 
   # This job does 3 things. 
   # 1. Retrieves the deployment runtime URL of the API from APIM
@@ -83,13 +77,13 @@ jobs:
           azcliversion: latest
           inlineScript: |
             echo "Getting deployment runtime URL from APIM..."
-            APIM_URL=$(az apim show --resource-group "$RESOURCE_GROUP" \
-                      --name "$APIM_SERVICE_NAME" --query 'gatewayUrl' -o tsv)
+            APIM_URL=$(az apim show --resource-group "${{env.RESOURCE_GROUP}}" \
+                      --name "${{env.APIM_SERVICE_NAME}}" --query 'gatewayUrl' -o tsv)
 
             # Get the path configuration for this specific API
-            API_PATH=$(az apim api show --resource-group "$RESOURCE_GROUP" \
-                      --service-name "$APIM_SERVICE_NAME" \
-                      --api-id "$API_ID" --query 'path' -o tsv || echo "$API_ID")
+            API_PATH=$(az apim api show --resource-group "${{env.RESOURCE_GROUP}}" \
+                      --service-name "${{env.APIM_SERVICE_NAME}}" \
+                      --api-id "${{env.API_ID}}" --query 'path' -o tsv || echo "${{env.API_ID}}")
 
             # Combine them to build the full runtime URL
             RUNTIME_URL="${APIM_URL}/${API_PATH}"
@@ -110,23 +104,23 @@ jobs:
 
             # Register the API to API Center using the OpenAPI specification
             echo "Registering API to API Center..."
-            az apic api register --resource-group "$RESOURCE_GROUP" \
-            --service-name "$APIC_SERVICE_NAME" \
-            --api-location "$SPECIFICATION_FILE_PATH"
+            az apic api register --resource-group "${{env.RESOURCE_GROUP}}" \
+            --service-name "${{env.APIC_SERVICE_NAME}}" \
+            --api-location "${{env.SPECIFICATION_FILE_PATH}}"
             echo "Successfully registered API to API Center"
 
             # Getting the environment ID of the API Center instance 
             echo "Listing environment to retrieve the environment ID..."
-            ENVIRONMENT_ID=$(az apic environment list --resource-group "$RESOURCE_GROUP" \
-                   --service-name "$APIC_SERVICE_NAME" -o json | \
+            ENVIRONMENT_ID=$(az apic environment list --resource-group "${{env.RESOURCE_GROUP}}" \
+                   --service-name "${{env.APIC_SERVICE_NAME}}" -o json | \
                    jq -r '.[0].name')            
             echo "Using environment ID: $ENVIRONMENT_ID"
 
             # Getting the latest API version of the specific API that has been registered to API Center
             echo "Getting version information for API..."
-            API_VERSION=$(az apic api version list --resource-group "$RESOURCE_GROUP" \
-            --service-name "$APIC_SERVICE_NAME" \
-            --api-id "$API_ID" -o json | \
+            API_VERSION=$(az apic api version list --resource-group "${{env.RESOURCE_GROUP}}" \
+            --service-name "${{env.APIC_SERVICE_NAME}}" \
+            --api-id "${{env.API_ID}}" -o json | \
             jq -r 'map(.name | {
               day: .[:2]|tonumber, 
               month: .[3:5]|tonumber, 
@@ -142,14 +136,14 @@ jobs:
             # Using the runtime URL retrieved from APIM
             # Using the environment ID and API version info retrieved above
             echo "Create deployment for the API..."
-            az apic api deployment create --resource-group "$RESOURCE_GROUP" \
-            --service-name "$APIC_SERVICE_NAME" \
-            --deployment-id "$LIFECYCLE_STAGE" \
-            --title "${LIFECYCLE_STAGE} deployment" \
-            --description "${API_ID} ${LIFECYCLE_STAGE} deployment" \
-            --api-id "$API_ID" \
+            az apic api deployment create --resource-group "${{env.RESOURCE_GROUP}}" \
+            --service-name "${{env.APIC_SERVICE_NAME}}" \
+            --deployment-id "${{env.LIFECYCLE_STAGE}}" \
+            --title "${{env.LIFECYCLE_STAGE}} deployment" \
+            --description "${{env.API_ID}} ${{env.LIFECYCLE_STAGE}} deployment" \
+            --api-id "${{env.API_ID}}" \
             --environment-id "/workspaces/default/environments/$ENVIRONMENT_ID" \
-            --definition-id "/workspaces/default/apis/${API_ID}/versions/${API_VERSION}/definitions/${DEFINITION_ID}" \
+            --definition-id "/workspaces/default/apis/${{env.API_ID}}/versions/${API_VERSION}/definitions/${DEFINITION_ID}" \
             --server "{\"runtimeUri\":[\"${{ env.RUNTIME_URL }}\"]}"          
             echo "Successfully created deployment for the API"
 
