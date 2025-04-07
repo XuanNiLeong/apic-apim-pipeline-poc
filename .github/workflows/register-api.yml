@@ -45,7 +45,10 @@ jobs:
         with:
           azcliversion: latest
           inlineScript: |
-            echo "Using specification file path: $SPECIFICATION_FILE_PATH"
+            echo "Using specification file path: ${{ env.SPECIFICATION_FILE_PATH }}"
+            echo "Using rg: ${{ env.RESOURCE_GROUP }}"
+            echo "Using apim: $APIM_SERVICE_NAME"
+
 
             echo "Deploying API to APIM..."
             az apim api import --resource-group "$RESOURCE_GROUP" \
