@@ -113,7 +113,7 @@ jobs:
             echo "Registering API to API Center..."
             az apic api register --resource-group "$RESOURCE_GROUP" \
             --service-name "$APIC_SERVICE_NAME" \
-            --api-location "$SPECIFICATION_FILE_PATH" 
+            --api-location "${{ env.SPECIFICATION_FILE_PATH }}"
             echo "Successfully registered API to API Center"
 
             # Getting the environment ID of the API Center instance 
