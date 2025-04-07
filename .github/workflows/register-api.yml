@@ -1,13 +1,10 @@
-name: Automate deployment and registration of API to APIM and API Center
+name: Automate deployment of API to APIM and registration of API to API Center
 
 on:
-  push:
-      branches:
-        - main
-  # pull_request:
-  #   types: [closed]
-  #   branches:
-  #     - main
+  pull_request:
+    types: [closed]
+    branches:
+      - main
 
 permissions:
   id-token: write
