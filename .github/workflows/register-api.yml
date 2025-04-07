@@ -28,6 +28,8 @@ jobs:
           set -a
           [ -f .env ] && . .env
           set +a
+          echo "path env ${{ env.SPECIFICATION_FILE_PATH}}"
+
         # uses: direnv/direnv-action@v2
         # with:
         #   env_file: .env
@@ -47,6 +49,8 @@ jobs:
           inlineScript: |
             echo "path $SPECIFICATION_FILE_PATH"
             echo "path env ${{ env.SPECIFICATION_FILE_PATH}}"
+            echo "SPECIFICATION_FILE_PATH: $SPECIFICATION_FILE_PATH"
+            ls -l .env
             echo "Deploying API to APIM..."
             az apim api import --resource-group "$RESOURCE_GROUP" \
             --service-name "$APIM_SERVICE_NAME" \
