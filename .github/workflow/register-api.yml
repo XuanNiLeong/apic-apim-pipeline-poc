@@ -93,7 +93,7 @@ jobs:
       - name: Azure login for API Center
         uses: azure/login@v1
         with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          creds: ${{ secrets.AZURE_CREDENTIALS_APIC }}
       
       # Register the API to API Center using the OpenAPI specification
       - name: Register API to API Center
