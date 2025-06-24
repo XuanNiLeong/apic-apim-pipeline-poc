@@ -3,14 +3,14 @@ info:
   title: catstore
   version: 01-01-25
   description: |-
-    This is a sample Pet Store Server based on the OpenAPI 3.0.0 specification.  You can find out more about
+    This is a sample Cat Store Server based on the OpenAPI 3.0.0 specification.  You can find out more about
     Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
     You can now help us improve the API whether it's by making changes to the definition itself or to the code.
     That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
 
     Some useful links:
-    - [The Pet Store repository](https://github.com/swagger-api/swagger-catstore)
-    - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-catstore/blob/master/src/main/resources/openapi.yaml)
+    - [The Cat Store repository](https://github.com/swagger-api/swagger-catstore)
+    - [The source API definition for the Cat Store](https://github.com/swagger-api/swagger-catstore/blob/master/src/main/resources/openapi.yaml)
 
   termsOfService: http://swagger.io/terms/
   contact:
