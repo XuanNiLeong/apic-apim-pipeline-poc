@@ -1,0 +1,23 @@
+{
+  "applicationName": "application",
+  "apiDependencies": {
+    "test": {
+      "apiDescriptionUrl": "/home/xuanleong/.vscode-server/data/User/globalStorage/apidev.azure-api-center/azure-api-center/9412d41e89/xnlapicdemo-order-25-06-25--openapi-openapi-tempFile.json",
+      "apiDeploymentBaseUrl": "https://api.order-service.com/v1/",
+      "requests": [
+        {
+          "method": "GET",
+          "uriTemplate": "orders/{orderId}"
+        },
+        {
+          "method": "PATCH",
+          "uriTemplate": "orders/{orderId}"
+        }
+      ],
+      "extensions": {
+        "x-ms-kiota-hash": "CDDA596694D39AC00D38670E5D41230A49CDDF3B402236442F07F4F4298C77C9",
+        "x-ms-kiota-version": "1.27.0"
+      }
+    }
+  }
+}

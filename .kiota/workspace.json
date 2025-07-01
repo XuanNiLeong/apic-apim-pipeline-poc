@@ -1,0 +1,28 @@
+{
+  "version": "1.0.0",
+  "clients": {
+    "test": {
+      "language": "Python",
+      "typeAccessModifier": "Public",
+      "structuredMimeTypes": [
+        "application/json",
+        "text/plain;q=0.9",
+        "application/x-www-form-urlencoded;q=0.2",
+        "multipart/form-data;q=0.1"
+      ],
+      "clientNamespaceName": "test",
+      "usesBackingStore": false,
+      "includeAdditionalData": true,
+      "excludeBackwardCompatible": false,
+      "disabledValidationRules": [],
+      "descriptionLocation": "/home/xuanleong/.vscode-server/data/User/globalStorage/apidev.azure-api-center/azure-api-center/9412d41e89/xnlapicdemo-order-25-06-25--openapi-openapi-tempFile.json",
+      "includePatterns": [
+        "/orders/{orderId}#GET",
+        "/orders/{orderId}#PATCH"
+      ],
+      "excludePatterns": [],
+      "outputPath": "./test"
+    }
+  },
+  "plugins": {}
+}

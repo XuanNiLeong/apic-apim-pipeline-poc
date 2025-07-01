@@ -1,0 +1,20 @@
+# Requirements for testing the Order Processing API client
+# Core Kiota dependencies
+microsoft-kiota-abstractions>=1.0.0
+microsoft-kiota-http>=1.0.0
+microsoft-kiota-serialization-json>=1.0.0
+microsoft-kiota-serialization-text>=1.0.0
+
+# HTTP client
+httpx>=0.24.0
+
+# Testing framework
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+
+# Additional utilities
+requests>=2.28.0
+python-dotenv>=1.0.0
+
+# For JSON handling and utilities
+typing-extensions>=4.0.0
