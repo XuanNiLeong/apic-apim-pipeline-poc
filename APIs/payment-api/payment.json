@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "payment",
-    "version": "1.0.0",
+    "version": "1-0-0",
     "description": "API for processing and managing payments.",
     "contact": {
       "name": "Payment API Team",
